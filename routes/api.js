@@ -58,6 +58,7 @@ module.exports = function (app) {
             let bookid = req.params.id;
             let comment = req.body.comment;
             //json res format same as .get
+            if (!comment) return res.send('missing required field comment')
             
             const response = await Books.findByIdAndUpdate(bookid, {
                 $push: {comments: comment},
