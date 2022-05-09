@@ -33,8 +33,8 @@ module.exports = function (app) {
         .delete(async function (req, res) {
             //if successful response will be 'complete delete successful'
             const response = await Books.deleteMany()
-
-            if (res.aknowledged) {
+            console.log(response)
+            if (response.acknowledged) {
                 return res.send('complete delete successful')
             }
             else {
@@ -59,7 +59,7 @@ module.exports = function (app) {
             let comment = req.body.comment;
             //json res format same as .get
             if (!comment) return res.send('missing required field comment')
-            
+
             const response = await Books.findByIdAndUpdate(bookid, {
                 $push: {comments: comment},
                 $inc: {commentcount: 1}
